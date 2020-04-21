@@ -39,6 +39,10 @@ public class Tabuleiro {
         }
     }
 
+    public void deletar(int linha, int coluna){
+        matriz[linha][coluna] = null;
+    }
+
     public void print_tabuleiro(){
         for (int linha=0;linha<8;linha++){
             System.out.print((8-linha)+" ");
@@ -52,6 +56,12 @@ public class Tabuleiro {
         }
         System.out.println("  a b c d e f g h ");
     }
+    public void upgrade(char cor, int[] vetorPosicao){
+        deletar(vetorPosicao[2], vetorPosicao[3]);
+        Dama nova = new Dama(cor);
+        matriz[vetorPosicao[2]][vetorPosicao[3]] = nova;
+
+    }
 
     public int[] transformar_coordenadas(String jogada){
         int vetor_pos[]= new int[4];
@@ -64,5 +74,43 @@ public class Tabuleiro {
         return vetor_pos;
     }
 
+    public void altera_posicao_norm(int[] vetor_pos) {
+        int linha_inicial = vetor_pos[0];
+        int coluna_inicial = vetor_pos[1];
+        int linha_final = vetor_pos[2];
+        int coluna_final = vetor_pos[3];
 
-}
+        if (matriz[linha_inicial][coluna_inicial] == null) {
+            System.out.println("posição acessada é vazia");
+        }
+        else {
+             if (matriz[linha_final][coluna_final] != null) {
+                System.out.println("posição final do pino a ser movimentado está ocupada ");
+             }
+             else {
+                    matriz[linha_final][coluna_final] = matriz[linha_inicial][coluna_inicial];
+                    matriz[linha_inicial][coluna_inicial] = null;
+
+                    int linha_dead = (linha_final +linha_inicial)/2;
+                    int coluna_dead = (coluna_final+coluna_inicial)/2;
+
+
+                    matriz[linha_dead][coluna_dead] = null;
+             }
+
+
+        }
+    }
+    public void altera_posicao_dama(int[] vetor_pos) {
+        int linha_inicial = vetor_pos[0];
+        int coluna_inicial = vetor_pos[1];
+        int linha_final = vetor_pos[2];
+        int coluna_final = vetor_pos[3];
+
+
+
+
+    }
+
+
+

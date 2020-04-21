@@ -4,6 +4,8 @@ public class Main {
     public static void main(String[] args){
         Tabuleiro tab=new Tabuleiro();
         tab.print_tabuleiro();
-        //teste de pull request
+        CSVReader csv = new CSVReader();
+        csv.setDataSource("C:/Users/vitor/IdeaProjects/Dama_Project/src/dama_package/Data.csv");
+        String commands[] = csv.requestCommands();
     }
 }
