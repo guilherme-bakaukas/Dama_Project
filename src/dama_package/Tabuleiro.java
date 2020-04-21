@@ -90,12 +90,14 @@ public class Tabuleiro {
              else {
                     matriz[linha_final][coluna_final] = matriz[linha_inicial][coluna_inicial];
                     matriz[linha_inicial][coluna_inicial] = null;
+                    if (linha_final - linha_inicial > 1 || linha_final - linha_inicial < - 1 ) {
 
-                    int linha_dead = (linha_final +linha_inicial)/2;
-                    int coluna_dead = (coluna_final+coluna_inicial)/2;
+                        int linha_dead = (linha_final + linha_inicial) / 2;
+                        int coluna_dead = (coluna_final + coluna_inicial) / 2;
 
 
-                    matriz[linha_dead][coluna_dead] = null;
+                        matriz[linha_dead][coluna_dead] = null;
+                    }
              }
 
 
@@ -106,11 +108,48 @@ public class Tabuleiro {
         int coluna_inicial = vetor_pos[1];
         int linha_final = vetor_pos[2];
         int coluna_final = vetor_pos[3];
+        matriz[linha_final][coluna_final] = matriz[linha_inicial][coluna_inicial];
+        matriz[linha_inicial][coluna_inicial] = null;
+
+        int linha_dead;
+        int coluna_dead;
+        if (linha_final < linha_inicial & coluna_final < coluna_inicial){
+            for (int i = 0 ; i < linha_inicial - linha_final ; i++){
+                linha_dead = linha_inicial - i;
+                coluna_dead = coluna_inicial - i;
+                matriz[linha_dead][coluna_dead] = null;
+            }
+        }
+        else if (linha_final < linha_inicial & coluna_final > coluna_inicial){
+            for (int i = 0 ; i < linha_inicial - linha_final ; i++){
+                linha_dead = linha_inicial - i;
+                coluna_dead = coluna_inicial + i;
+                matriz[linha_dead][coluna_dead] = null;
+            }
+        }
+        else if (linha_final > linha_inicial & coluna_final < coluna_inicial){
+            for (int i = 0 ; i < linha_final - linha_inicial ; i++){
+                linha_dead = linha_inicial + i;
+                coluna_dead = coluna_inicial - i;
+                matriz[linha_dead][coluna_dead] = null;
+            }
+        }
+        else{
+            for (int i = 0 ; i < linha_final - linha_inicial ; i++){
+                linha_dead = linha_inicial + i;
+                coluna_dead = coluna_inicial + i;
+                matriz[linha_dead][coluna_dead] = null;
+            }
+        }
+
+
 
 
 
 
     }
+}
+
 
 
 
