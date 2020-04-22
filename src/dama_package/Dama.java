@@ -39,7 +39,11 @@ public class Dama extends Peca {
         return true;
 }
 
-    public boolean verifica_captura(Peca[][] matriz, int[] vetor_pos){
+    public int[] verifica_captura(Peca[][] matriz, int[] vetor_pos){
+
+        int[] vetor={-1,-1};
+        int linha_dead=-1;
+        int coluna_dead=-1;
 
         int linha_inicial=vetor_pos[0];
         int coluna_inicial=vetor_pos[1];
@@ -49,11 +53,9 @@ public class Dama extends Peca {
 
         int diferenca_coluna=coluna_final-coluna_inicial;
 
-        if ((diferenca_coluna!=diferenca_linha)&(diferenca_coluna!=((-1)*diferenca_linha))) return false;// caso as posições não estejam na diagonal retornar falso
+        if ((diferenca_coluna!=diferenca_linha)&(diferenca_coluna!=((-1)*diferenca_linha))) return vetor;// caso as posições não estejam na diagonal retornar falso
 
-        boolean verificadora=super.verifica_captura(matriz,vetor_pos);
-
-        if (verificadora==false) return false;
+        if (matriz[linha_final][coluna_final]!=null) return vetor;
 
         else{
             int incremento_linha=-1;
@@ -68,16 +70,24 @@ public class Dama extends Peca {
                 linha=linha+incremento_linha;
                 coluna=coluna+incremento_coluna;
                 if (matriz[linha][coluna]!=null){
+
                     count++;
-                    if (matriz[linha][coluna].equipe==this.equipe) return false;// caso seja da mesma equipe n deve capturar
+                    linha_dead=linha;//guardar as posições do elemento a ser capturado
+                    coluna_dead=coluna;
+
+                    if (matriz[linha][coluna].equipe==this.equipe) {
+                        return vetor;// caso seja da mesma equipe n deve capturar
+                    }
                     else{
-                        if (matriz[linha+incremento_linha][coluna+incremento_coluna]!=null) return false;//caso não haja uma casa livre após a peça n deve haver captura
+                        if (matriz[linha+incremento_linha][coluna+incremento_coluna]!=null) return vetor;//caso não haja uma casa livre após a peça n deve haver captura
                     }
                 }
             }
-            if (count>1) return false;// se houver mais de uma peça no percurso, n deve ser feita a captura
+            if (count>1) return vetor;// se houver mais de uma peça no percurso, n deve ser feita a captura
 
         }
-        return true;
+        vetor[0]=linha_dead;
+        vetor[1]=coluna_dead;
+        return vetor;
     }
 }
