@@ -14,23 +14,23 @@ public class Tabuleiro {
                     case 0:
                     case 2:
                         if ((coluna%2)!=0){
-                            matriz[linha][coluna]=new Peca('P');
+                            matriz[linha][coluna]=new Peca_comum('P');
                         }
                         break;
                     case 1:
                         if ((coluna%2)==0){
-                            matriz[linha][coluna]=new Peca ('P');
+                            matriz[linha][coluna]=new Peca_comum ('P');
                         }
                         break;
                     case 5:
                     case 7:
                         if ((coluna%2)==0){
-                            matriz[linha][coluna]=new Peca('B');
+                            matriz[linha][coluna]=new Peca_comum('B');
                         }
                         break;
                     case 6:
                         if ((coluna%2)!=0){
-                            matriz[linha][coluna]=new Peca ('B');
+                            matriz[linha][coluna]=new Peca_comum ('B');
                         }
                         break;
                 }
