@@ -5,7 +5,6 @@ public class Main {
         Tabuleiro tab=new Tabuleiro();
         tab.print_tabuleiro();
 
-
     }
 
 

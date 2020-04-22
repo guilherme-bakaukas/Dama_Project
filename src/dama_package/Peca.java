@@ -18,7 +18,8 @@ public class Peca {
         else return false;//posição está ocupada
     }
 
-
-
-
+    public boolean verifica_captura(Peca[][] matriz, int[] vetor_pos){
+        if (matriz[vetor_pos[2]][vetor_pos[3]]!=null) return false;
+        else return true;
+    }
 }

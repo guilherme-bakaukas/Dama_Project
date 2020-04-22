@@ -64,24 +64,7 @@ public class Tabuleiro {
         return vetor_pos;
     }
 
-    /*public void verifica_captura_tabuleiro(char equipe){
-        boolean realizar_captura=false;
-        if (equipe=='P'){
-            for (int linha=0;linha<8;linha++){
-                for (int coluna=0;coluna<8;coluna++){
-                    if (matriz[linha][coluna]!=null){
-                        if (matriz[linha][coluna].equipe==equipe){
-                            realizar_captura=matriz[linha][coluna].verifica_movimento(matriz);
-                        }
-                    }
-                }
-            }
 
-        }
-        else if (equipe=='B'){
-
-        }
-    }*/
 
 
 

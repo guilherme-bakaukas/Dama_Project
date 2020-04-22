@@ -29,4 +29,8 @@ public class Dama extends Peca {
     }
         return true;
 }
+
+    public boolean verifica_captura(Peca[][] matriz, int[] vetor_pos){
+        return false;
+    }
 }
