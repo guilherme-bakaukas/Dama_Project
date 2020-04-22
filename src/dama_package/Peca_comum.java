@@ -3,6 +3,7 @@ package dama_package;
 public class Peca_comum extends Peca {
     Peca_comum(char nome) {
         super(nome);
+        is_dama = false;
     }
 
     public boolean verifica_movimento(Peca[][] matriz, int[] vetor_pos) {
@@ -13,9 +14,17 @@ public class Peca_comum extends Peca {
         boolean verificadora = false;
         verificadora = super.verifica_movimento(matriz, vetor_pos);
         if (verificadora == false) return false;
-        else if ((linha_final - linha_inicial == 1) & ((coluna_final - coluna_inicial == 1) || (coluna_final - coluna_inicial == -1))) {
+        if ((linha_final - linha_inicial == 1) & ((coluna_final - coluna_inicial == 1) || (coluna_final - coluna_inicial == -1))) {
+            if(matriz[linha_inicial][coluna_inicial].equipe == 'P'){
+                return true;
+            }
             //essa condição abrange apenas o caso de movimentação não de captura
-            return true;
+        }
+        if ((linha_final - linha_inicial == -1) & ((coluna_final - coluna_inicial == 1) || (coluna_final - coluna_inicial == -1))) {
+            if(matriz[linha_inicial][coluna_inicial].equipe == 'B'){
+                return true;
+            }
+            //essa condição abrange apenas o caso de movimentação não de captura
         }
         return false;
     }
@@ -46,4 +55,6 @@ public class Peca_comum extends Peca {
         }
         return false;
     }
+
+
 }
