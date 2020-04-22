@@ -6,13 +6,21 @@ public class Dama extends Peca {
     }
 
     public boolean verifica_movimento(Peca[][] matriz,int[] vetor_pos){
+
         int linha_inicial=vetor_pos[0];
         int coluna_inicial=vetor_pos[1];
         int linha_final=vetor_pos[2];
         int coluna_final=vetor_pos[3];
+        int diferenca_linha=linha_final-linha_inicial;
+        int diferenca_coluna=coluna_final-coluna_inicial;
+
+        if ((diferenca_coluna!=diferenca_linha)&(diferenca_coluna!=((-1)*diferenca_linha))) return false;// caso as posições não estejam na diagonal retornar falso
+
         boolean verificadora=false;
         verificadora=super.verifica_movimento(matriz,vetor_pos);
+
         if (verificadora==false) return false;
+
         else{
             int incremento_linha=-1;
             int incremento_coluna=-1;
@@ -20,6 +28,7 @@ public class Dama extends Peca {
             if (linha_inicial<linha_final) incremento_linha=1;
             int linha= linha_inicial;
             int coluna= coluna_inicial;
+
             while((linha!=linha_final)&(coluna!=coluna_final)){
                 linha=linha+incremento_linha;
                 coluna=coluna+incremento_coluna;
@@ -31,6 +40,44 @@ public class Dama extends Peca {
 }
 
     public boolean verifica_captura(Peca[][] matriz, int[] vetor_pos){
-        return false;
+
+        int linha_inicial=vetor_pos[0];
+        int coluna_inicial=vetor_pos[1];
+        int linha_final=vetor_pos[2];
+        int coluna_final=vetor_pos[3];
+        int diferenca_linha=linha_final-linha_inicial;
+
+        int diferenca_coluna=coluna_final-coluna_inicial;
+
+        if ((diferenca_coluna!=diferenca_linha)&(diferenca_coluna!=((-1)*diferenca_linha))) return false;// caso as posições não estejam na diagonal retornar falso
+
+        boolean verificadora=super.verifica_captura(matriz,vetor_pos);
+
+        if (verificadora==false) return false;
+
+        else{
+            int incremento_linha=-1;
+            int incremento_coluna=-1;
+            if (coluna_inicial<coluna_final) incremento_coluna=1;
+            if (linha_inicial<linha_final) incremento_linha=1;
+            int linha= linha_inicial;
+            int coluna= coluna_inicial;
+            int count=0;// serve para contabilizar o numero de peças no meio do caminho da dama
+
+            while((linha!=linha_final)&(coluna!=coluna_final)){
+                linha=linha+incremento_linha;
+                coluna=coluna+incremento_coluna;
+                if (matriz[linha][coluna]!=null){
+                    count++;
+                    if (matriz[linha][coluna].equipe==this.equipe) return false;// caso seja da mesma equipe n deve capturar
+                    else{
+                        if (matriz[linha+incremento_linha][coluna+incremento_coluna]!=null) return false;//caso não haja uma casa livre após a peça n deve haver captura
+                    }
+                }
+            }
+            if (count>1) return false;// se houver mais de uma peça no percurso, n deve ser feita a captura
+
+        }
+        return true;
     }
 }
