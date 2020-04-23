@@ -11,6 +11,7 @@ public class Main {
         csv.setDataSource("C:/Users/vitor/IdeaProjects/Dama_Project/src/dama_package/Data.csv");
         String commands[] = csv.requestCommands();
         char vez = 'B';
+        boolean upgradeDado = false;
 
         int tamanho = commands.length;
         for (int i = 0 ; i < tamanho ; i++ ){
@@ -28,12 +29,14 @@ public class Main {
                     if(atual[2] == 0){
                         tab.upgrade('B',atual);
                         patual.posso_continuar = 0;
+                        upgradeDado = true;
                     }
                 }
                 else if (patual.equipe == 'P' && !patual.is_dama){
                     if(atual[2] == 7){
                         tab.upgrade('P',atual);
                         patual.posso_continuar = 0;
+                        upgradeDado = true;
                     }
                 }
                 // Upgrade pra Dama
@@ -41,7 +44,7 @@ public class Main {
 
                 patual = tab.matriz[atual[2]][atual[3]];
                 if(i<tamanho-1){atual = tab.transformar_coordenadas(commands[i+1]);}
-                if(patual.verifica_captura(tab.matriz,atual)){
+                if(patual.verifica_captura(tab.matriz,atual) && !upgradeDado){
                     patual.posso_continuar = 1;
                 }
                 else{
@@ -59,6 +62,7 @@ public class Main {
             tab.print_tabuleiro();
             System.out.println();
             System.out.println();
+            upgradeDado = false;
 
         }
     }
