@@ -48,7 +48,11 @@ public class Tabuleiro {
             System.out.print((8-linha)+" ");
             for (int coluna=0;coluna<8;coluna++){
                 if (matriz[linha][coluna]!=null){
-                    System.out.print(matriz[linha][coluna].equipe+" ");
+                    if (matriz[linha][coluna].is_dama==true){
+                        if (matriz[linha][coluna].equipe=='P') System.out.print("Q ");
+                        if (matriz[linha][coluna].equipe=='B') System.out.print(("C "));
+                    }
+                    else System.out.print(matriz[linha][coluna].equipe+" ");
                 }
                 else System.out.print("- ");
             }
@@ -84,21 +88,21 @@ public class Tabuleiro {
             System.out.println("posição acessada é vazia");
         }
         else {
-             if (matriz[linha_final][coluna_final] != null) {
+            if (matriz[linha_final][coluna_final] != null) {
                 System.out.println("posição final do pino a ser movimentado está ocupada ");
-             }
-             else {
-                    matriz[linha_final][coluna_final] = matriz[linha_inicial][coluna_inicial];
-                    matriz[linha_inicial][coluna_inicial] = null;
-                    if (linha_final - linha_inicial > 1 || linha_final - linha_inicial < - 1 ) {
+            }
+            else {
+                matriz[linha_final][coluna_final] = matriz[linha_inicial][coluna_inicial];
+                matriz[linha_inicial][coluna_inicial] = null;
+                if (linha_final - linha_inicial > 1 || linha_final - linha_inicial < - 1 ) {
 
-                        int linha_dead = (linha_final + linha_inicial) / 2;
-                        int coluna_dead = (coluna_final + coluna_inicial) / 2;
+                    int linha_dead = (linha_final + linha_inicial) / 2;
+                    int coluna_dead = (coluna_final + coluna_inicial) / 2;
 
 
-                        matriz[linha_dead][coluna_dead] = null;
-                    }
-             }
+                    matriz[linha_dead][coluna_dead] = null;
+                }
+            }
 
 
         }
@@ -149,7 +153,6 @@ public class Tabuleiro {
 
     }
 }
-
 
 
 

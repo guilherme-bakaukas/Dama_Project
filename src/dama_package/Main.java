@@ -18,10 +18,11 @@ public class Main {
             System.out.println("   Source: " + commands[i].charAt(0)+ commands[i].charAt(1));
             System.out.println("   Target: " + commands[i].charAt(3)+ commands[i].charAt(4));
             int atual[] = tab.transformar_coordenadas(commands[i]);
-            System.out.println("   Vez: " + vez);
+            //System.out.println("   Vez: " + vez);
             if(vez == tab.matriz[atual[0]][atual[1]].equipe & tab.matriz[atual[0]][atual[1]] != null ){
                 Peca patual = tab.matriz[atual[0]][atual[1]];
                 patual.movimento(tab.matriz, atual, tab);
+
 
 
                 // Upgrade pra Dama
@@ -41,23 +42,28 @@ public class Main {
                 }
                 // Upgrade pra Dama
 
-
                 patual = tab.matriz[atual[2]][atual[3]];
-                if(i<tamanho-1){atual = tab.transformar_coordenadas(commands[i+1]);}
-                if(patual.verifica_captura(tab.matriz,atual) && !upgradeDado){
-                    patual.posso_continuar = 1;
+                if (patual != null) {
+                    if (i < tamanho - 1) {
+                        atual = tab.transformar_coordenadas(commands[i + 1]);
+                    }
+                    if (patual.verifica_captura(tab.matriz, atual) && !upgradeDado) {
+                        patual.posso_continuar = 1;
+                    } else {
+                        patual.posso_continuar = 0;
+                    }
+
+
+                    if (vez == 'B' && patual.posso_continuar == 0) {
+                        vez = 'P';
+                    } else if (vez == 'P' && patual.posso_continuar == 0) {
+                        vez = 'B';
+                    }
                 }
                 else{
-                    patual.posso_continuar = 0;
+                    System.out.println("Movimento invalido");
                 }
 
-
-                if(vez == 'B' && patual.posso_continuar == 0){
-                    vez = 'P';
-                }
-                else if (vez == 'P' && patual.posso_continuar == 0){
-                    vez = 'B';
-                }
             }
             tab.print_tabuleiro();
             System.out.println();
