@@ -30,12 +30,14 @@ public class Peca {
 
     public boolean movimento(Peca[][] matriz, int[] vetor_pos, Tabuleiro tab){
         if (verifica_captura(matriz, vetor_pos)){
-            tab.altera_posicao_norm(vetor_pos);
+            if (tab.matriz[vetor_pos[0]][vetor_pos[1]].is_dama){tab.altera_posicao_dama(vetor_pos);}
+            else{tab.altera_posicao_norm(vetor_pos);}
             matriz[vetor_pos[2]][vetor_pos[3]].posso_continuar = 1;
             return true;
         }
         else if (verifica_movimento(matriz, vetor_pos)){
-            tab.altera_posicao_norm(vetor_pos);
+            if (tab.matriz[vetor_pos[0]][vetor_pos[1]].is_dama){tab.altera_posicao_dama(vetor_pos);}
+            else{tab.altera_posicao_norm(vetor_pos);}
             matriz[vetor_pos[2]][vetor_pos[3]].posso_continuar = 0;
             return true;
         }
