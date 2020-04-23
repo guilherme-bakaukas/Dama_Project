@@ -17,9 +17,13 @@ public class Main {
             System.out.println("   Source: " + commands[i].charAt(0)+ commands[i].charAt(1));
             System.out.println("   Target: " + commands[i].charAt(3)+ commands[i].charAt(4));
             int atual[] = tab.transformar_coordenadas(commands[i]);
+            System.out.println("   Vez: " + vez);
             if(vez == tab.matriz[atual[0]][atual[1]].equipe & tab.matriz[atual[0]][atual[1]] != null ){
                 Peca patual = tab.matriz[atual[0]][atual[1]];
                 patual.movimento(tab.matriz, atual, tab);
+
+
+                // Upgrade pra Dama
                 if (patual.equipe == 'B' && !patual.is_dama){
                     if(atual[2] == 0){
                         tab.upgrade('B',atual);
@@ -32,35 +36,23 @@ public class Main {
                         patual.posso_continuar = 0;
                     }
                 }
-                patual = tab.matriz[atual[2]][atual[3]];
-                while(patual.posso_continuar == 1){
-                    if(patual.verifica_captura(tab.matriz,atual)){
-                        i++;
-                        atual = tab.transformar_coordenadas(commands[i]);
-                        patual = tab.matriz[atual[0]][atual[1]];
-                        patual.movimento(tab.matriz, atual, tab);
-                        if (patual.equipe == 'B' && !patual.is_dama){
-                            if(atual[2] == 0){
-                                tab.upgrade('B',atual);
-                                patual.posso_continuar = 0;
-                            }
-                        }
-                        else if (patual.equipe == 'P' && !patual.is_dama){
-                            if(atual[2] == 7){
-                                tab.upgrade('P',atual);
-                                patual.posso_continuar = 0;
-                            }
-                        }
-                    }
-                    else{
-                        patual.posso_continuar = 0;
-                    }
+                // Upgrade pra Dama
 
-                }
-                if(vez == 'B'){
-                    vez = 'P';
+
+                patual = tab.matriz[atual[2]][atual[3]];
+                if(i<tamanho-1){atual = tab.transformar_coordenadas(commands[i+1]);}
+                if(patual.verifica_captura(tab.matriz,atual)){
+                    patual.posso_continuar = 1;
                 }
                 else{
+                    patual.posso_continuar = 0;
+                }
+
+
+                if(vez == 'B' && patual.posso_continuar == 0){
+                    vez = 'P';
+                }
+                else if (vez == 'P' && patual.posso_continuar == 0){
                     vez = 'B';
                 }
             }
